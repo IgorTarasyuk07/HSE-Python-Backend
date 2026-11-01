@@ -1,25 +1,30 @@
 class Product:
-    def __init__(self, name, category, price):
-        self.name = name
-        self.category = category
-        self.price = price
+    def __init__(self, name: str, category: str, price: float) -> None:
+        self.name: str = name
+        self.category: str = category
+        self.price: float = price
+        self.sale: float = 0
+
+    def edit_category(self, new_category: str) -> None:
+        self.category = new_category
+
+    def edit_price(self, new_price: float) -> None:
+        self.price = new_price
+
+    def set_sale(self, sale: float) -> None:
+        if not 0 <= sale <= 100:
+            raise ValueError('sale must be in range [0, 100]')
+        self.sale = sale
+
+    def cancel_sale(self) -> None:
         self.sale = 0
 
-    def edit_category(self, new_category):
-        pass
+    def get_price(self) -> float:
+        # Скидка хранится в процентах
+        return self.price * (100 - self.sale) / 100
 
-    def edit_price(self, new_price):
-        pass
-
-    def set_sale(self, sale):
-        pass
-
-    def cancel_sale(self):
-        pass
-
-    def get_price(self):
-        # Это не тупо геттер - тут надо учесть скидку и еще то, что скидка указана в процентах
-        pass
-
-    def __repr__(self):
-        pass
+    def __repr__(self) -> str:
+        return (
+            f'Product(name={self.name!r}, category={self.category!r}, '
+            f'price={self.price}, sale={self.sale}%)'
+        )
